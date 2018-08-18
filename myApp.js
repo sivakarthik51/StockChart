@@ -1,5 +1,6 @@
 
 var express = require('express');
+var path = require('path');
 var app = express();
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI);
@@ -8,21 +9,17 @@ var io = require('socket.io')(server);
 
 const symbol = mongoose.model('Symbol',{name : String});
 server.listen(8080);
-if (process.env.NODE_ENV === 'production') {
-  console.log('prod');
-  app.use(express.static( __dirname + '/dist/charting-stock'));
-}
-else{
-  console.log('not prod');
-  console.log(__dirname);
-  app.use(express.static( __dirname + '/public'));
-}
+app.use(express.static( path.join(__dirname,'/public')));
+app.get('/', function(req,res){
+  console.log('Got Request for page');
+  return res.sendFile(path.join(__dirname , '/views/index.html'));
+});
 const socket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/tops')
 
 // Listen to the channel's messages
 socket.on('message', message => { 
   console.log(message);
-  console.log(process.env.NODE_ENV);
+  console.log(__dirname);
   io.on('connection', function (socket) {
     symbol.find({},function(err,Symbols){
       if(Symbols){
@@ -85,14 +82,7 @@ socket.on('connect', () => {
 // Disconnect from the channel
 socket.on('disconnect', () => console.log('Disconnected.'))
 
-app.get('/', function(req,res){
-  if (process.env.NODE_ENV === 'production') {
-    return res.sendFile(__dirname + '/dist/charting-stock/index.html');
-  }
-  else{
-    return res.sendFile(__dirname + '/views/index.html');
-  }
-});
+
 //---------- DO NOT EDIT BELOW THIS LINE --------------------
 
  module.exports = app;
