@@ -1,7 +1,6 @@
 
 var express = require('express');
 var app = express();
-require('dotenv').config()
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI);
 var server = require('http').createServer(app);
