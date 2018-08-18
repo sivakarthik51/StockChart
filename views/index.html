@@ -40,12 +40,12 @@
           </md-input-container>
           <md-chips ng-model="activeSymbols" readonly="false" md-removable="true" md-on-remove="deleteSymbol($chip);">
     </md-chips>
-        <md-button class="md-raised md-primary" ng-click="getChartData()">
+        <md-button class="md-raised md-primary" ng-click="handleAddStock()">
           Add
         </md-button>
        </md-content>
     </md-card>
-    <div layout="row" layout-sm="column" layout-align="space-around" ng-if="isLoading">
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-if="isLoading" style="text-align:center;">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
     <div id="chart">
