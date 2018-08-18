@@ -16,10 +16,11 @@ StockChart.controller('chartController',function($scope, $http,ChartData,$mdToas
   $scope.isLoading = false;
   $scope.series= [];
   if(window.location.hostname === 'localhost'){
-  $scope.socket = io('http://localhost:8080/');
+  //$scope.socket = io('http://localhost:8080/');
+  $scope.socket = io.connect('http://localhost:8080');
   }
   else{
-    $scope.socket = io('https://charting-stock.herokuapp.com:8080/');
+    $scope.socket = io.connect('https://charting-stock.herokuapp.com:8080');
   }
   $scope.drawChart = function(){
     Highcharts.stockChart('chart', {
