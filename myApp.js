@@ -3,10 +3,10 @@ var express = require('express');
 var path = require('path');
 var port = process.env.PORT || 8080;
 var app = express();
-/*
+
 var listener = app.listen(port,function(){
   console.log("Application listening on Port "+port);
-});*/
+});
 
 
 var mongoose = require('mongoose');

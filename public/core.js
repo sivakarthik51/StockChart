@@ -15,7 +15,12 @@ StockChart.controller('chartController',function($scope, $http,ChartData,$mdToas
   $scope.errorMessage = null;
   $scope.isLoading = false;
   $scope.series= [];
-  $scope.socket = io();
+  if(window.location.hostname === 'localhost'){
+  $scope.socket = io('http://localhost:8080/');
+  }
+  else{
+    $scope.socket = io('https://charting-stock.herokuapp.com:8080/');
+  }
   $scope.drawChart = function(){
     Highcharts.stockChart('chart', {
         rangeSelector: {
