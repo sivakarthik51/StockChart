@@ -1,0 +1,15 @@
+/* the 'body' selector is required for the tests to pass */
+/* You can change the style attributes if you want */
+body {
+  color: #ddd;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align:center;
+  font-size: 4em;
+}
+
+input[type=text], label {
+  margin-bottom: 8px;
+}

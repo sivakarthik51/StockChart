@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="StockMarket">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Charting Stock Market</title>
+		<link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"> </script>
+    <script src="/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+	</head>
+	<body ng-controller="chartController">
+    
+		<h1>Charting Stock Market</h1>
+     <md-card>
+       <md-card-title style="background: rgb(16,108,200);color:white">
+         <md-card-title-text>
+            <span class="md-headline">Add Stock</span>
+          </md-card-title-text>
+       </md-card-title>
+       <md-content layout-padding>
+         <md-input-container class="md-block" flex-gt-sm>
+            <label>Symbol</label>
+            <input ng-model="symbol">
+           <div ng-messages="errorMessage" ng-if="errorMessage">
+           <div>{{errorMessage}}</div>
+           </div>
+          </md-input-container>
+          <md-chips ng-model="activeSymbols" readonly="false" md-removable="true" md-on-remove="deleteSymbol($chip);">
+    </md-chips>
+        <md-button class="md-raised md-primary" ng-click="getChartData()">
+          Add
+        </md-button>
+       </md-content>
+    </md-card>
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-if="isLoading">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <div id="chart">
+      
+    </div>
+	</body>
+
+</html>
