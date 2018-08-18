@@ -19,7 +19,7 @@ StockChart.controller('chartController',function($scope, $http,ChartData,$mdToas
   $scope.socket = io('http://localhost:8080/');
   }
   else{
-    $scope.socket = io('http://charting-stock.herokuapp.com:8080/');
+    $scope.socket = io('https://charting-stock.herokuapp.com/');
   }
   $scope.drawChart = function(){
     Highcharts.stockChart('chart', {
