@@ -1,7 +1,14 @@
 
 var express = require('express');
 var path = require('path');
+var port = process.env.PORT || 8080;
 var app = express();
+/*
+var listener = app.listen(port,function(){
+  console.log("Application listening on Port "+port);
+});*/
+
+
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI);
 var server = require('http').createServer(app);
@@ -14,12 +21,12 @@ app.get('/', function(req,res){
   console.log('Got Request for page');
   return res.sendFile(path.join(__dirname , '/views/index.html'));
 });
+
 const socket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/tops')
 
 // Listen to the channel's messages
 socket.on('message', message => { 
   console.log(message);
-  console.log(__dirname);
   io.on('connection', function (socket) {
     symbol.find({},function(err,Symbols){
       if(Symbols){
